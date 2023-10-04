@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.15'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'jacoco'
+}
+
+group = 'com.example'
+version = '0.1.0'
+
+
+java {
+    sourceCompatibility = '17'
+}
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.2'
+
+
+    implementation 'org.liquibase:liquibase-core:4.8.0'
+    testImplementation 'junit:junit:4.13.1'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    implementation "org.mapstruct:mapstruct:1.4.2.Final"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+test {
+    useJUnitPlatform()
+
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/example/postoffice/dto/*",
+                    "com/example/postoffice/entity/*",
+                    "com/example/postoffice/repository/*",
+                    "com/example/postoffice/exception/*",
+                    "com/example/postoffice/PostOfficeApplication.class"
+            ])
+        }))
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}

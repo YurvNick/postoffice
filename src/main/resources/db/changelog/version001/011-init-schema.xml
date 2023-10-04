@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1694935798455-1" author="admin">
+        <createTable tableName="department">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_department"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="index" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1694935798455-2" author="admin">
+        <createTable tableName="parcel">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_parcel"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="parcel_type" type="VARCHAR(255)"/>
+            <column name="recipient_index" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1694935798455-3" author="admin">
+        <createTable tableName="parcel_history_points">
+            <column name="parcel_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="history_points_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1694935798455-4" author="admin">
+        <createTable tableName="transaction_history_point">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_transaction_history_point"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="point_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="appointment_date" type="DATETIME"/>
+            <column name="index_department" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1694935798455-5" author="admin">
+        <addUniqueConstraint columnNames="index" constraintName="uc_department_index" tableName="department"/>
+    </changeSet>
+    <changeSet id="1694935798455-6" author="admin">
+        <addUniqueConstraint columnNames="history_points_id" constraintName="uc_parcel_history_points_historypoints"
+                             tableName="parcel_history_points"/>
+    </changeSet>
+    <changeSet id="1694935798455-7" author="admin">
+        <addForeignKeyConstraint baseColumnNames="history_points_id" baseTableName="parcel_history_points"
+                                 constraintName="fk_parhispoi_on_history_point" referencedColumnNames="id"
+                                 referencedTableName="transaction_history_point"/>
+    </changeSet>
+    <changeSet id="1694935798455-8" author="admin">
+        <addForeignKeyConstraint baseColumnNames="parcel_id" baseTableName="parcel_history_points"
+                                 constraintName="fk_parhispoi_on_parcel" referencedColumnNames="id"
+                                 referencedTableName="parcel"/>
+    </changeSet>
+
+</databaseChangeLog>
