@@ -134,7 +134,6 @@ class ParcelControllerV1Test {
         ResultActions response = mockMvc.perform(get("/api/v1/parcel/get")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("id", String.valueOf(id))
-                .content(objectMapper.writeValueAsString(requestParcelDto))
                 .characterEncoding("utf-8"));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
@@ -173,7 +172,6 @@ class ParcelControllerV1Test {
                 .param("identifierParcel", "1")
                 .param("index", String.valueOf(index))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(requestParcelDto))
                 .characterEncoding("utf-8"));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
@@ -193,7 +191,6 @@ class ParcelControllerV1Test {
         ResultActions response = mockMvc.perform(get("/api/v1/parcel/leave")
                 .param("identifierParcel", String.valueOf(idParcel))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(requestParcelDto))
                 .characterEncoding("utf-8"));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
@@ -211,7 +208,6 @@ class ParcelControllerV1Test {
 
                 .param("identifierParcel", String.valueOf(idParcel))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(requestParcelDto))
                 .characterEncoding("utf-8"));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
