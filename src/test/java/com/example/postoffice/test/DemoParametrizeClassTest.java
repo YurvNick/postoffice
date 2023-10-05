@@ -1,5 +1,6 @@
 package com.example.postoffice.test;
 
+import com.example.postoffice.spock.test.DemoParametrizeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;

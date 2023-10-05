@@ -1,4 +1,4 @@
-package com.example.postoffice.test;
+package com.example.postoffice.spock.test;
 
 public class DemoParametrizeClass {
     public int plus(int number) {
